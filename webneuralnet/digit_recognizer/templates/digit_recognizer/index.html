@@ -9,8 +9,21 @@
 		<link href="{% static "styles/style.css" %}" rel="stylesheet" />
 	</head>
 	<body>
-	   <p>
-	       Hello!
-	   </p>
+	   {% block content%}
+	   <canvas id="picturebox" width="500" height="500"></canvas>
+	   <form method="post" enctype="multipart/form-data">
+	       {% csrf_token %}
+	       <input type="hidden" name="pic">
+	       <button id="submitForm">
+	           Recognize
+	       </button>
+	   </form>
+	   <script src="{% static "scripts/jquery-2.2.1.min.js"%}">
+       </script>
+	   <script src="{% static "scripts/sketch.min.js"%}">
+       </script>
+	   <script src="{% static "scripts/script.js"%}">
+	   </script>
+	   {%endblock%}
 	</body>
 </html>
