@@ -2,7 +2,9 @@ var inp = $('input[name="pic"]');
 var canvas = document.getElementById('picturebox');
 var ctx = canvas.getContext('2d');
 
-$('canvas').sketch();
+$('canvas').sketch({
+    defaultSize: 30
+});
 
 $('#submitForm').on('click', function(evt) {
     evt.preventDefault();

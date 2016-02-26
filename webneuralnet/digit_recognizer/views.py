@@ -20,6 +20,10 @@ def index(request):
         background.paste(png, mask=png.split()[3])
 
         background.save('foo.jpg', 'JPEG', quality=80)
-        return HttpResponseRedirect('/'); 
+        
+        picSize = 27, 27
+        background.thumbnail(picSize)
+        background.save('foo_small.jpg', 'JPEG', quality=100)
+        return HttpResponseRedirect('/');
     else:
         return render(request, 'digit_recognizer/index.html', {})  
