@@ -1,4 +1,7 @@
-var inp = $('input[type="hidden"]');
+var inp = $('input[name="pic"]');
+var canvas = document.getElementById('picturebox');
+var ctx = canvas.getContext('2d');
+
 $('canvas').sketch();
 
 $('#submitForm').on('click', function(evt) {
@@ -8,5 +11,5 @@ $('#submitForm').on('click', function(evt) {
     
     inp.val(imgData);
     
- //   $('form').trigger('submit');     
+    $('form').trigger('submit');     
 });

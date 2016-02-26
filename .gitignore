@@ -3,3 +3,6 @@
 .project
 .pydevproject
 *.sqlite3
+imgs/
+*.png
+*.jpg
