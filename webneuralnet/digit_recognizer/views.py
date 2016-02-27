@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from webneuralnet import settings
+import numpy as np
 from PIL import Image
 import re
 
@@ -21,9 +22,18 @@ def index(request):
 
         background.save('foo.jpg', 'JPEG', quality=80)
         
-        picSize = 27, 27
+        picSize = 28, 28
         background.thumbnail(picSize)
         background.save('foo_small.jpg', 'JPEG', quality=100)
-        return HttpResponseRedirect('/');
+        
+        imgGrey = background.convert('L')
+        imgArray = np.asarray(imgGrey)
+        print imgArray.size
+        for row in imgArray:
+            for col in row:
+                print np.float32(col)/255
+                        
+        
+        return HttpResponseRedirect('/')
     else:
         return render(request, 'digit_recognizer/index.html', {})  
