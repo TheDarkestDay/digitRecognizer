@@ -7,6 +7,8 @@ import network
 from PIL import Image
 import re
 
+net = network.Network([784,30,10])
+
 # Create your views here.
 def index(request):
     if (request.method == 'POST'):
@@ -34,8 +36,12 @@ def index(request):
         for row in imgArray:
             for col in row:
                 convertedArray.append(np.float32(abs(col-255))/255)
-    
-        print convertedArray
+        
+        arrayNP = np.ndarray(shape=(784,1), buffer=np.array(convertedArray))
+        print net.feedforward(arrayNP)
         return HttpResponseRedirect('/')
     else:
+        tr_d, v_d, t_d = mnist_loader.load_data_wrapper()
+        net.SGD(tr_d,30,10,3.0)
+        
         return render(request, 'digit_recognizer/index.html', {})  
