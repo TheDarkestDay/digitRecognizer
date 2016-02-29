@@ -36,7 +36,7 @@ def index(request):
         for row in imgArray:
             for col in row:
                 convertedArray.append(np.float32(abs(col-255))/255)
-        
+                      
         arrayNP = np.ndarray(shape=(784,1), buffer=np.array(convertedArray))
         maxIndex = 0
         ans = net.feedforward(arrayNP)
@@ -53,6 +53,7 @@ def index(request):
 def learn(request):
     tr_d, v_d, t_d = mnist_loader.load_data_wrapper()
     net.SGD(tr_d,30,10,3.0)
+    print net.evaluate(t_d)
     return HttpResponseRedirect('/')  
 
 
