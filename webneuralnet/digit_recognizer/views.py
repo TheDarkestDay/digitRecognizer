@@ -38,10 +38,23 @@ def index(request):
                 convertedArray.append(np.float32(abs(col-255))/255)
         
         arrayNP = np.ndarray(shape=(784,1), buffer=np.array(convertedArray))
-        print net.feedforward(arrayNP)
-        return HttpResponseRedirect('/')
-    else:
-        tr_d, v_d, t_d = mnist_loader.load_data_wrapper()
-        net.SGD(tr_d,30,10,3.0)
-        
-        return render(request, 'digit_recognizer/index.html', {})  
+        maxIndex = 0
+        ans = net.feedforward(arrayNP)
+        for i in range(0,10):
+            if (ans[i] > ans[maxIndex]):
+                maxIndex = i
+                
+        return render(request, 'digit_recognizer/answer.html', {'answer': maxIndex})        
+    else:  
+        return render(request, 'digit_recognizer/index.html', {})
+    
+    
+    
+def learn(request):
+    tr_d, v_d, t_d = mnist_loader.load_data_wrapper()
+    net.SGD(tr_d,30,10,3.0)
+    return HttpResponseRedirect('/')  
+
+
+
+            
